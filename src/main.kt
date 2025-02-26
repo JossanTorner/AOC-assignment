@@ -50,7 +50,7 @@ fun sumDividedIndex(data : List<List<Int>>) : Int {
 fun sumDividedAllLists(data : List<List<Int>>) : Int {
     tailrec fun divList(data: List<List<Int>>, index: Int, sum: Int): Int {
         if (index == data.size) return sum
-        return divList(data, index + 1, sum + getDivisionValue(data[index]))
+        return divList(data, index + 1, sum + getDivisionValueRecursive(data[index]))
     }
     return divList(data, 0, 0)
 }
@@ -103,18 +103,6 @@ fun div(data : List<Int>) : Int{
     return loop(data, 0, 1)
 }
 
-fun getDivisionValue(data: List<Int>) : Int{
-    for (currentNumberIndex in data.indices){
-        for (comparisonNumberIndex in data.indices){
-            if (currentNumberIndex != comparisonNumberIndex && data[currentNumberIndex] % data[comparisonNumberIndex] == 0){
-                return data[currentNumberIndex] / data[comparisonNumberIndex]
-            }
-        }
-    }
-    return 0
-}
-
-
 fun div2(data: List<Int>): Int {
     tailrec fun loop(data: List<Int>, currentNumber: Int, indexComp: Int): Int {
         if (currentNumber == data.size - 1) return 0
@@ -138,6 +126,34 @@ fun divisionValue(data : List<Int>) : Int {
 val sumEvenNumbers: (List<Int>) -> Int = { list ->
     list.filter { it % 2 == 0 }.sum()
 }
+
+//denna funkar
+fun getDivisionValue(data: List<Int>) : Int{
+    for (currentNumberIndex in data.indices){
+        for (comparisonNumberIndex in data.indices){
+            if (currentNumberIndex != comparisonNumberIndex && data[currentNumberIndex] % data[comparisonNumberIndex] == 0){
+                return data[currentNumberIndex] / data[comparisonNumberIndex]
+            }
+        }
+    }
+    return 0
+}
+
+//funkar
+fun getDivisionValueRecursive(data: List<Int>) : Int{
+    tailrec fun loop(data: List<Int>, currentNumber : Int, comparisonNumber: Int) : Int {
+
+        if (currentNumber == data.size - 1) return 0
+        else if (comparisonNumber == data.size) return loop(data, currentNumber + 1, 0)
+
+        if (data[currentNumber] % data[comparisonNumber] == 0 && comparisonNumber != currentNumber){
+            return data[currentNumber] / data[comparisonNumber]
+        }
+        return loop(data, currentNumber, comparisonNumber + 1)
+    }
+    return loop(data, 0, 1)
+}
+
 
 
 fun readFile() : List<String>{
