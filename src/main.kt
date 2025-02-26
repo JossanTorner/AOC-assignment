@@ -141,19 +141,26 @@ fun getDivisionValue(data: List<Int>) : Int{
 
 //funkar
 fun getDivisionValueRecursive(data: List<Int>) : Int{
-    tailrec fun loop(data: List<Int>, currentNumber : Int, comparisonNumber: Int) : Int {
+    tailrec fun loop(data: List<Int>, currentIndex : Int, compareIndex: Int) : Int {
 
-        if (currentNumber == data.size - 1) return 0
-        else if (comparisonNumber == data.size) return loop(data, currentNumber + 1, 0)
+        if (currentIndex == data.size - 1) return 0
+        else if (compareIndex == data.size) return loop(data, currentIndex + 1, 0)
 
-        if (data[currentNumber] % data[comparisonNumber] == 0 && comparisonNumber != currentNumber){
-            return data[currentNumber] / data[comparisonNumber]
+        if (isEvenlyDivided(data[currentIndex], data[compareIndex]) && isDifferentIndex(compareIndex, currentIndex)){
+            return data[currentIndex] / data[compareIndex]
         }
-        return loop(data, currentNumber, comparisonNumber + 1)
+        return loop(data, currentIndex, compareIndex + 1)
     }
     return loop(data, 0, 1)
 }
 
+fun isEvenlyDivided(number1 : Int, number2 : Int) : Boolean{
+    return number1 % number2 == 0
+}
+
+fun isDifferentIndex(index1 : Int, index2 : Int) : Boolean{
+    return index1 != index2
+}
 
 
 fun readFile() : List<String>{
