@@ -46,15 +46,6 @@ fun sumDividedIndex(data : List<List<Int>>) : Int {
     return divList(data, 0, 0)
 }
 
-//testar med lambda
-fun sumDividedAllLists(data : List<List<Int>>) : Int {
-    tailrec fun divList(data: List<List<Int>>, index: Int, sum: Int): Int {
-        if (index == data.size) return sum
-        return divList(data, index + 1, sum + getDivisionValueRecursive(data[index]))
-    }
-    return divList(data, 0, 0)
-}
-
 
 // För varje element (behövs index), kolla om vardera element efter det är jämnt delbart, i så fall skicka vidare talet av divisionen
 // om elementet ej är delbart med nästa element, jämför med nästa (behövs index för nuvarande jämförelse)
@@ -127,7 +118,16 @@ val sumEvenNumbers: (List<Int>) -> Int = { list ->
     list.filter { it % 2 == 0 }.sum()
 }
 
-//denna funkar
+//funkar
+fun sumDividedAllLists(data : List<List<Int>>) : Int {
+    tailrec fun divList(data: List<List<Int>>, index: Int, sum: Int): Int {
+        if (index == data.size) return sum
+        return divList(data, index + 1, sum + getDivisionValueRecursive(data[index]))
+    }
+    return divList(data, 0, 0)
+}
+
+//funkar
 fun getDivisionValue(data: List<Int>) : Int{
     for (currentNumberIndex in data.indices){
         for (comparisonNumberIndex in data.indices){
