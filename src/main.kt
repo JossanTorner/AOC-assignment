@@ -146,7 +146,7 @@ fun getDivisionValueRecursive(data: List<Int>) : Int{
         if (currentIndex == data.size - 1) return 0
         else if (compareIndex == data.size) return loop(data, currentIndex + 1, 0)
 
-        if (isEvenlyDivided(data[currentIndex], data[compareIndex]) && isDifferentIndex(compareIndex, currentIndex)){
+        if (data[currentIndex] % data[compareIndex] == 0 && compareIndex != currentIndex){
             return data[currentIndex] / data[compareIndex]
         }
         return loop(data, currentIndex, compareIndex + 1)
