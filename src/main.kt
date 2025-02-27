@@ -154,6 +154,11 @@ fun getDivisionValueRecursive(data: List<Int>) : Int{
     return loop(data, 0, 1)
 }
 
+//testar nåt
+fun testPipeline(list: List<Int>) : Int{
+    return list.flatMap{ i -> list.map { j -> i to j } }.filter{ (i, j) -> i % j == 0 && isDifferentIndex(i, j)}
+}
+
 fun isEvenlyDivided(number1 : Int, number2 : Int) : Boolean{
     return number1 % number2 == 0
 }
