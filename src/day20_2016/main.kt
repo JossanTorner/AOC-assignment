@@ -55,7 +55,7 @@ fun findLowestAllowedIp2(blockedRanges: List<String>): Long {
         0L  // No blocked IPs, the lowest IP is 0
     } else {
         mergedRanges.firstOrNull { it.end < Long.MAX_VALUE }?.end?.plus(1)
-            ?: mergedRanges.last().end + 1
+            ?: (mergedRanges.last().end + 1)
     }
 }
 
