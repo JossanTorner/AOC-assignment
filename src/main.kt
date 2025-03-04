@@ -46,41 +46,6 @@ fun sumDividedIndex(data : List<List<Int>>) : Int {
     return divList(data, 0, 0)
 }
 
-
-// För varje element (behövs index), kolla om vardera element efter det är jämnt delbart, i så fall skicka vidare talet av divisionen
-// om elementet ej är delbart med nästa element, jämför med nästa (behövs index för nuvarande jämförelse)
-
-fun divv(data: List<Int>): Int {
-    tailrec fun loop(currentIndex: Int = 0, compIndex: Int = 0, result: Int = 0): Int {
-        // If we've checked all elements, return the result
-        if (currentIndex >= data.size) return result
-
-        // If we've compared current element with all others, move to next element
-        if (compIndex >= data.size) return loop(currentIndex + 1, 0, result)
-
-        // Skip comparing a number with itself
-        if (currentIndex == compIndex) return loop(currentIndex, compIndex + 1, result)
-
-        // Check if one number divides the other
-        val divResult = when {
-            data[currentIndex] % data[compIndex] == 0 -> data[currentIndex] / data[compIndex]
-            data[compIndex] % data[currentIndex] == 0 -> data[compIndex] / data[currentIndex]
-            else -> 0 // No division possible
-        }
-
-        // If we found a divisible pair, add to result and move to next row
-        // Otherwise continue checking other pairs
-        return if (divResult > 0) {
-            loop(currentIndex + 1, 0, result + divResult)
-        } else {
-            loop(currentIndex, compIndex + 1, result)
-        }
-    }
-
-    return loop()
-}
-
-
 fun div(data : List<Int>) : Int{
     tailrec fun loop(data : List<Int>, currentNumber : Int, indexComp : Int) : Int {
         if(currentNumber == data.size - 1) return 0
@@ -154,19 +119,6 @@ fun getDivisionValueRecursive(data: List<Int>) : Int{
     return loop(data, 0, 1)
 }
 
-//testar nåt
-fun testPipeline(list: List<Int>) : Int{
-    return list.flatMap{ i -> list.map { j -> i to j } }.filter{ (i, j) -> i % j == 0 && isDifferentIndex(i, j)}
-}
-
-fun isEvenlyDivided(number1 : Int, number2 : Int) : Boolean{
-    return number1 % number2 == 0
-}
-
-fun isDifferentIndex(index1 : Int, index2 : Int) : Boolean{
-    return index1 != index2
-}
-
 
 fun readFile() : List<String>{
     var data = mutableListOf<String>()
@@ -194,15 +146,3 @@ fun main() {
     println(shouldgive2)
 }
 
-// fun division(list: List<Int>): Int {
-//    tailrec fun findNumbers(list: List<Int>, sum : Int, index: Int, currentComparator : Int): Int {
-//        if (index >= list.size - 1) return sum
-//        if (currentComparator == list.size) return findNumbers(list, sum, index + 1, index + 2)
-//
-//        return if (list[index] % list[currentComparator] == 0) {
-//            list[index] / list[currentComparator]
-//        }
-//        else findNumbers(list, sum, index, currentComparator + 1)
-//    }
-//    return findNumbers(list, 0, 0, 1)
-//}
