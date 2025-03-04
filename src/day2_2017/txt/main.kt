@@ -66,7 +66,7 @@ fun createIntLists(data : List<String>) : List<List<Int>>{
 fun readFile() : List<String>{
     var data = mutableListOf<String>()
     try{
-        data = File("src/day2_2017/txt/data3.txt").readLines().toMutableList()
+        data = File("src/day2_2017/txt/data_day2_josefin.txt").readLines().toMutableList()
     }
     catch (e: NumberFormatException){
         println("Not correct data in file")

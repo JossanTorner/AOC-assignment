@@ -5,7 +5,7 @@ import java.io.File
 fun getData() : MutableList<String> {
     var data = mutableListOf<String>()
     try{
-        data = File("src/day3_2022/data_day_3_linn").readLines().toMutableList()
+        data = File("src/day3_2022/data_day3_linn").readLines().toMutableList()
     }
     catch (e: Exception){
         println(e.message)
@@ -48,18 +48,28 @@ fun solvePart1(input: List<String>) : Int {
 val priorities = (('a'..'z').zip(1..26) + ('A'..'Z').zip(27..52)).toMap()
 
 fun printResult() {
-    val result = File("src/day3_2022/data_day_3_linn")
+    val result = File("src/day3_2022/data_day3_linn")
         .readLines()  // Läser filen som en lista av rader
         .filter { it.isNotEmpty() }  // Tar bort tomma rader
         .let(::solvePart1)  // Kör lösningen på listan
     println("Sum of priorities: $result")
 }
 
+fun solvePart2(input: List<String>): Int {
+    return input
+        .asSequence()
+        .chunked(3)  // Dela upp input i grupper om 3 ransaksäckar
+        .map { group ->
+            group[0].toSet()
+                .intersect(group[1].toSet())
+                .intersect(group[2].toSet())
+                .first()  // Hitta gemensam bokstav i alla 3 ransaksäckar
+        }
+        .sumOf { priorities[it] ?: 0 }  // Summera prioriteringar
+}
+
 fun main(){
-
     println(getSum(getData()))
-
-    printResult()
-
     println(solvePart1(getData()))
+    println(solvePart2(getData()))
 }
