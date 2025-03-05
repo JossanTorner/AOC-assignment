@@ -69,7 +69,7 @@ fun readFile() : List<String>{
         data = File("src/day2_2017/txt/data_day2_josefin.txt").readLines().toMutableList()
     }
     catch (e: NumberFormatException){
-        println("Not correct data in file")
+        println("Not correct data_day20_linn in file")
     }
     catch (e: Exception){
         println(e.message)
