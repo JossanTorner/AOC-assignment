@@ -13,6 +13,7 @@ fun getData() : MutableList<String> {
     return data
 }
 
+// Bland olika ranges av IP av icke tillåtna IP-adressen, hitta den lägsta tillåtna
 fun getLowestAllowedIp(data : MutableList<String>) : Long {
     val ranges = data.map { it.split('-').map { it.toLong() } }.map { it[0] to it[1] }.sortedBy { it.first }
 
