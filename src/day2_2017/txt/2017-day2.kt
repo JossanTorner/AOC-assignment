@@ -3,45 +3,33 @@ package day2_2017.txt
 import java.io.File
 
 //AoC 2017 day 2.
+//For each row, determine the difference between the largest value and the smallest value; the checksum is the sum of all of these differences.
+// What is the checksum for the spreadsheet in your puzzle input?
 
 // PART 1
-fun highestNumb (list : List<Int>) : Int {
-    return list.max()
-}
-
-// PART 1
-fun lowestNumber(list : List<Int>) : Int {
-    return list.min()
-}
-
-// PART 1
-fun diff(max : Int, min : Int) : Int {
-    return max - min
-}
-
-
-// PART 1
-fun sumDiff(data : List<List<Int>>) : Int {
-    tailrec fun diff (data : List<List<Int>>, index : Int, sum : Int) : Int {
+fun sumDifference(data : List<List<Int>>) : Int {
+    tailrec fun loop (data : List<List<Int>>, index : Int, sum : Int) : Int {
        if(index == data.size) return sum
-        return diff (data, index + 1, sum + diff(highestNumb(data[index]), lowestNumber(data[index])))
+        return loop(data, index + 1, sum + (data[index].max() - data[index].min()))
    }
-    return diff(data, 0, 0)
+    return loop(data, 0, 0)
 }
 
+//-----------------------------------------------------------------------------------------------------------------
 // PART 2
-fun sumDividedAllLists(data : List<List<Int>>) : Int {
-    tailrec fun divList(data: List<List<Int>>, index: Int, sum: Int): Int {
+//What is the sum of division result of each row's two evenly divided numbers?
+
+fun getSumPartTwo(data : List<List<Int>>) : Int {
+    tailrec fun loop(data: List<List<Int>>, index: Int, sum: Int): Int {
         if (index == data.size) return sum
-        return divList(data, index + 1, sum + getDivisionValue(data[index]))
+        return loop(data, index + 1, sum + getDivisionValue(data[index]))
     }
-    return divList(data, 0, 0)
+    return loop(data, 0, 0)
 }
 
 // PART 2
 fun getDivisionValue(data: List<Int>) : Int{
     tailrec fun loop(data: List<Int>, currentIndex : Int, compareIndex: Int) : Int {
-
         if (currentIndex == data.size - 1) return 0
         else if (compareIndex == data.size) return loop(data, currentIndex + 1, 0)
 
@@ -68,9 +56,6 @@ fun readFile() : List<String>{
     try{
         data = File("src/day2_2017/txt/data_day2_josefin.txt").readLines().toMutableList()
     }
-    catch (e: NumberFormatException){
-        println("Not correct data_day20_linn in file")
-    }
     catch (e: Exception){
         println(e.message)
     }
@@ -78,8 +63,8 @@ fun readFile() : List<String>{
 }
 
 fun main() {
-    println(sumDiff(createIntLists(readFile())))
-    val sum = sumDividedAllLists(createIntLists(readFile()))
+    println(sumDifference(createIntLists(readFile())))
+    val sum = getSumPartTwo(createIntLists(readFile()))
     println(sum)
 }
 
