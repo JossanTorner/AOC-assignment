@@ -23,11 +23,7 @@ fun getLowestAllowedIp(data : MutableList<String>) : Long {
     }
 }
 
-fun main() {
-    println(getLowestAllowedIp(getData()))
-}
-
-
+// lösning med vanlig loop
 fun getSmallestAllowedIp(data : MutableList<String>) : Long {
     // skapar en lista av Pair<Long, Long>, sorterar den efter lägsta första numret
     val ranges = data.map { it.split('-').map { it.toLong() } }.map {it[0] to it[1]}.sortedBy { it.first }
@@ -43,4 +39,8 @@ fun getSmallestAllowedIp(data : MutableList<String>) : Long {
         lowest = maxOf(lowest, range.second + 1)
     }
     return lowest
+}
+
+fun main() {
+    println(getLowestAllowedIp(getData()))
 }

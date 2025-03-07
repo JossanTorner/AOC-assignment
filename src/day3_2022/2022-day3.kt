@@ -38,17 +38,8 @@ fun solvePartTwo(input: List<String>): Int {
         .sumOf { priorities[it] ?: 0 }  // Summera prioriteringar eller 0 om ingen gemensam bokstav hittas.
 }
 
-// skapar en map som "parar ihop" varje bokstav med ett nummervärde
-val priorities = (('a'..'z').zip(1..26) + ('A'..'Z').zip(27..52)).toMap()
-
-fun main(){
-    println(solvePartOne(getData()))
-    println(solvePartTwo(getData()))
-}
-
-
-// part 1, tailrec function
-fun partOneOwnSolution(list : MutableList<String>) : Long {
+// Alternativ rekursiv funktion till part1
+fun partOneRecSolution(list : MutableList<String>) : Long {
     tailrec fun accSum(index : Int, sum : Long) : Long{
         if (index >= list.size) return sum
         val currentWord = list[index]
@@ -60,4 +51,12 @@ fun partOneOwnSolution(list : MutableList<String>) : Long {
         return accSum(index+1, sum + priorityNum)
     }
     return accSum(0, 0)
+}
+
+// skapar en map som "parar ihop" varje bokstav med ett nummervärde
+val priorities = (('a'..'z').zip(1..26) + ('A'..'Z').zip(27..52)).toMap()
+
+fun main(){
+    println(solvePartOne(getData()))
+    println(solvePartTwo(getData()))
 }
