@@ -3,8 +3,7 @@ package day2_2017.txt
 import java.io.File
 
 //AoC 2017 day 2.
-//For each row, determine the difference between the largest value and the smallest value; the checksum is the sum of all of these differences.
-// What is the checksum for the spreadsheet in your puzzle input?
+// För varje dag, hitta lägsta och högsta nummer, ta ut skillnaden mellan dem och addera till en summa
 
 // PART 1
 fun sumDifference(data : List<List<Int>>) : Int {
@@ -17,8 +16,7 @@ fun sumDifference(data : List<List<Int>>) : Int {
 
 //-----------------------------------------------------------------------------------------------------------------
 // PART 2
-//What is the sum of division result of each row's two evenly divided numbers?
-
+// För varje rad, hitta de två numren som delar jämnt och addera kvoten till en summa
 fun getSumPartTwo(data : List<List<Int>>) : Int {
     tailrec fun loop(data: List<List<Int>>, index: Int, sum: Int): Int {
         if (index == data.size) return sum

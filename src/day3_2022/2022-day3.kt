@@ -13,7 +13,7 @@ fun getData() : MutableList<String> {
     return data
 }
 
-// Divide each line in two parts, find the one letter that appears in both parts and add the priority value of that letter to a sum
+// Dela upp varje rad (String) i två delar, hitta det tecken som förekommer i båda delarna och addera prioritetsnummer för det tecknet till en summa
 fun solvePartOne(input: List<String>) : Int {
     return input
         .asSequence()  // Förbättrar prestanda för stora datamängder
@@ -24,7 +24,7 @@ fun solvePartOne(input: List<String>) : Int {
         .sumOf { priorities[it] ?: 0 }  // Summerar prioriteringar, eller 0 om inte funnen
 }
 
-// Group input in chunks of 3 lines each, find the letter that appears in all three and add priority value of that letter to a sum
+// Skapa grupper av tre rader, hitta det tecken som förekommer i alla tre och addera alla prioritetsvärden för dessa tecken till en summa
 fun solvePartTwo(input: List<String>): Int {
     return input
         .asSequence()
@@ -35,11 +35,10 @@ fun solvePartTwo(input: List<String>): Int {
                 .intersect(group[2].toSet())
                 .first()  // Hitta gemensam bokstav i alla 3 ransaksäckar
         }
-        .sumOf { priorities[it] ?: 0 }  // Summera prioriteringar
+        .sumOf { priorities[it] ?: 0 }  // Summera prioriteringar eller 0 om ingen gemensam bokstav hittas.
 }
 
-// skapar en map som "parar ihop" varje bokstav med ett nummervärde vilket sedan hämtas i solvepart1functional.
-
+// skapar en map som "parar ihop" varje bokstav med ett nummervärde
 val priorities = (('a'..'z').zip(1..26) + ('A'..'Z').zip(27..52)).toMap()
 
 //{
@@ -53,7 +52,7 @@ fun main(){
 }
 
 
-// part 1, tailrec function vi gjort själv (ej till 100%)
+// part 1, tailrec function
 fun partOneOwnSolution(list : MutableList<String>) : Long {
     tailrec fun accSum(index : Int, sum : Long) : Long{
         if (index >= list.size) return sum
@@ -62,13 +61,7 @@ fun partOneOwnSolution(list : MutableList<String>) : Long {
         val wordDivided = arrayOf(currentWord.substring(0, middle), currentWord.substring(middle))
         val commonChars = wordDivided[0].toSet().intersect(wordDivided[1].toSet())
 
-        val priorityNum = commonChars.sumOf {
-            when (it) {
-                in 'a'..'z' -> (it.code - 'a'.code + 1).toLong()
-                in 'A'..'Z' -> (it.code - 'A'.code + 27).toLong()
-                else -> 0
-            }
-        }
+        val priorityNum = priorities[commonChars.first()] ?: 0
         return accSum(index+1, sum + priorityNum)
     }
     return accSum(0, 0)
